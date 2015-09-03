@@ -108,9 +108,9 @@ module Kramdown
       def convert_li(el, indent)
         parentType = @stack.last.type.to_s
         if parentType.eql? "ol" then
-          "#{'#'*(indent/2)}#{inner(el, 0)}"
+          "#{'#'*(indent/2)}#{inner(el, indent/2)}"
         else
-          "#{'*'*(indent/2)}#{inner(el, 0)}"
+          "#{'*'*(indent/2)}#{inner(el, indent/2)}"
         end
       end
 
