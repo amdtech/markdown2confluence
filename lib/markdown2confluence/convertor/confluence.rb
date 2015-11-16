@@ -79,7 +79,7 @@ module Kramdown
       end
 
       def convert_text(el, indent)
-        el.value
+        el.value.strip
       end
 
       def convert_p(el, indent)
@@ -106,7 +106,12 @@ module Kramdown
       alias :convert_dl :convert_ul
 
       def convert_li(el, indent)
-        "#{'*'*(indent/2)}#{inner(el, 0)}"
+        parentType = @stack.last.type.to_s
+        if parentType.eql? "ol" then
+          "#{'#'*(indent/2)}#{inner(el, indent/2)}"
+        else
+          "#{'*'*(indent/2)}#{inner(el, indent/2)}"
+        end
       end
 
       alias :convert_dd :convert_li
