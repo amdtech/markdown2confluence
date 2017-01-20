@@ -79,7 +79,7 @@ module Kramdown
       end
 
       def convert_text(el, indent)
-        el.value.strip
+        el.value.gsub(/\s+/, ' ')
       end
 
       def convert_p(el, indent)
@@ -125,7 +125,8 @@ module Kramdown
                when "iframe" then "{iframe:src=#{el.attr["src"]}}"
                when "pre" then
                  if inner(el,indent).strip.match(/\n/)
-                   "{code}#{inner(el,indent)}{code}"
+                   language, code = inner(el,indent).strip.split(/\n/, 2)
+                   "{code:language=#{language}}#{code}{code}"
                  else
                    "{{#{inner(el,indent).strip}}}"
                  end
